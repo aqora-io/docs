@@ -1,0 +1,37 @@
+---
+title: aqora
+description: Run quantum programs on real hardware with the aqora CLI and Python library.
+template: splash
+hero:
+  tagline: Run quantum programs on real hardware from the framework you already use — qiskit, pytket, or guppy.
+  image:
+    light: ../../assets/logo-icon.svg
+    dark: ../../assets/logo-icon-dark.svg
+    alt: aqora
+  actions:
+    - text: Get started
+      link: /getting-started/installation/
+      icon: right-arrow
+    - text: View on GitHub
+      link: https://github.com/aqora-io/cli
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+	<Card title="Install" icon="rocket">
+		One command with uv: `uv tool install aqora` gives you the CLI and the
+		Python library. [Installation →](/getting-started/installation/)
+	</Card>
+	<Card title="Authenticate" icon="approve-check">
+		`aqora login` connects your aqora.io account — and inside aqora
+		workspaces you're already logged in.
+		[Authentication →](/getting-started/authentication/)
+	</Card>
+	<Card title="Run on a QPU" icon="seti:python">
+		Submit circuits from qiskit, pytket, or guppy to real quantum hardware
+		and read back counts. [Running circuits →](/qpu/)
+	</Card>
+</CardGrid>

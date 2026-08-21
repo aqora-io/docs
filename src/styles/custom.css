@@ -1,0 +1,45 @@
+/* aqora brand theme for Starlight.
+   Colors from the platform frontend (frontend/src/index.css): the brand
+   (indigo/violet) and grey (Untitled UI) ramps. */
+
+/* Dark theme (Starlight default). */
+:root {
+	--sl-color-accent-low: #160c54; /* brand-950 */
+	--sl-color-accent: #6853ea; /* brand-400 — brand-500 is too dark on near-black */
+	--sl-color-accent-high: #c5bcf8; /* brand-100 */
+
+	--sl-color-white: #fcfcfd; /* grey-25 */
+	--sl-color-gray-1: #f2f4f7; /* grey-100 */
+	--sl-color-gray-2: #d0d5dd; /* grey-300 */
+	--sl-color-gray-3: #98a2b3; /* grey-400 */
+	--sl-color-gray-4: #475467; /* grey-600 */
+	--sl-color-gray-5: #344054; /* grey-700 */
+	--sl-color-gray-6: #182230; /* grey-800 */
+	--sl-color-black: #101828; /* grey-900 */
+
+	--sl-font: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Light theme — matches the platform. */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #c5bcf8; /* brand-100 */
+	--sl-color-accent: #4328e5; /* brand-500 */
+	--sl-color-accent-high: #25167e; /* brand-800 */
+
+	--sl-color-white: #0c111d; /* grey-950 */
+	--sl-color-gray-1: #182230; /* grey-800 — platform body text */
+	--sl-color-gray-2: #344054; /* grey-700 */
+	--sl-color-gray-3: #667085; /* grey-500 */
+	--sl-color-gray-4: #98a2b3; /* grey-400 */
+	--sl-color-gray-5: #d0d5dd; /* grey-300 */
+	--sl-color-gray-6: #e4e7ec; /* grey-200 — platform border color */
+	--sl-color-gray-7: #f9fafb; /* grey-50 */
+	--sl-color-black: #fdfdfd; /* platform page background */
+}
+
+/* Headings and the site title in Poppins, matching the platform. */
+:is(h1, h2, h3, h4, h5, h6),
+.site-title {
+	font-family: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
+	font-weight: 600;
+}
