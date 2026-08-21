@@ -3,7 +3,6 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 export default defineConfig({
-  // TODO: confirm the final docs domain before deploying
   site: "https://docs.aqora.io",
   integrations: [
     starlight({
