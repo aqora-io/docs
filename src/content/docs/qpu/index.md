@@ -47,6 +47,23 @@ qpu = QPU(platform="nexus:Selene")
 
 A bare name like `"Selene"` or a global id also works.
 
+## Submitting as a team
+
+Pass `as_entity` to attribute jobs to an organization you belong to. For competitions, that is
+your team:
+
+```python
+qpu = QPU(platform="nexus:Selene", as_entity="my-team")
+```
+
+`as_entity` takes the organization's username or id. Every job submitted through this `QPU` is
+attributed to that organization, which is how provider quota is tracked per team.
+
+:::note
+Team members must submit as the team. When `as_entity` is omitted the job is attributed to you
+personally, and you must be a member of the provider platform yourself.
+:::
+
 ## What you can submit
 
 `run()` accepts a single program or a list of them:
