@@ -10,7 +10,7 @@ passes, guppy's HUGR toolchain. Use them when the rest of your code already live
 ecosystems.
 
 All three take the same constructor arguments as the universal `QPU`, including
-`platform="provider:name"`.
+`platform="provider:name"` and `as_entity="my-team"`.
 
 ## Qiskit
 
