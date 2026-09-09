@@ -46,6 +46,10 @@ export default defineConfig({
             { label: "Framework backends", slug: "qpu/frameworks" },
           ],
         },
+        {
+          label: "Integrations",
+          items: [{ label: "MCP server", slug: "mcp" }],
+        },
       ],
     }),
   ],
