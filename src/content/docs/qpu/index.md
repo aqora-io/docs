@@ -25,7 +25,8 @@ print(job.counts())  # [{'00': 512, '11': 488}]
 ```
 
 `run()` returns immediately with a `QPUJob`; `counts()` waits for the job to complete and
-normalizes its results.
+normalizes its results. `shots` is required: providers have no shared default, so omitting it
+raises a `ValueError` before anything is submitted.
 
 ## How it works
 

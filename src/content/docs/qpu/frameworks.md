@@ -34,7 +34,7 @@ job = backend.run(transpile(qc, backend), shots=1000)
 print(job.result().get_counts())
 ```
 
-Only `shots` is forwarded to the provider; the platform handles device-level compilation.
+Only `shots` is forwarded to the provider, and it is required; the platform handles device-level compilation.
 
 For the V2 primitives, the backend provides a sampler and an estimator
 (`BackendSamplerV2` / `BackendEstimatorV2`):
