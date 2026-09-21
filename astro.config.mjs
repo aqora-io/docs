@@ -47,6 +47,17 @@ export default defineConfig({
           ],
         },
         {
+          label: "Storage",
+          items: [
+            { label: "Object storage", slug: "storage" },
+            { label: "Key-value store", slug: "storage/kv" },
+          ],
+        },
+        {
+          label: "Workspace apps",
+          items: [{ label: "Viewer login", slug: "workspaces/viewer-login" }],
+        },
+        {
           label: "Integrations",
           items: [{ label: "MCP server", slug: "mcp" }],
         },

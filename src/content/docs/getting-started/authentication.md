@@ -59,3 +59,5 @@ aqora auth token
 ## Next steps
 
 - [Run your first circuit on a QPU](/qpu/)
+- [Read and write files in your bucket](/storage/)
+- [Act as the viewer of a workspace app](/workspaces/viewer-login/)
