@@ -1,12 +1,35 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import starlightLlmsTxt from "starlight-llms-txt";
 
 export default defineConfig({
   site: "https://docs.aqora.io",
   integrations: [
     starlight({
       title: "aqora docs",
+      description:
+        "Run quantum programs on real hardware with the aqora CLI and Python library.",
+      plugins: [
+        starlightLlmsTxt({
+          projectName: "aqora",
+          promote: ["index*", "getting-started/installation", "getting-started/**"],
+          demote: ["mcp"],
+          description:
+            "The aqora CLI and Python library run quantum programs on real hardware from qiskit, pytket or guppy, and give notebooks in aqora.io workspaces access to object storage, a key-value store and the aqora GraphQL API.",
+          optionalLinks: [
+            {
+              label: "aqora.io",
+              url: "https://aqora.io",
+              description: "The aqora platform: competitions, datasets, workspaces and quantum jobs",
+            },
+            {
+              label: "CLI and Python library source",
+              url: "https://github.com/aqora-io/cli",
+            },
+          ],
+        }),
+      ],
       logo: {
         light: "./src/assets/logo.svg",
         dark: "./src/assets/logo-dark.svg",
