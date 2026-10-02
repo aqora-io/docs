@@ -68,6 +68,53 @@ print(backend.get_result(handle).get_counts())
 `default_compilation_pass()` runs a client-side optimisation pipeline; the server owns
 device-level compilation, so `rebase_pass()` and the backend gateset are client-side conveniences.
 
+### WASM modules
+
+:::note
+WASM modules are Nexus-only: they run on the H-series devices, their emulators and syntax checkers
+(e.g. `nexus:H2-1E`, `nexus:H2-1SC`). Other platforms reject the job.
+:::
+
+Circuits can call into a WASM module mid-circuit, for example to run a custom decoder. Pass the
+module's `WasmFileHandler` as `wasm_file_handler`, as you would with pytket-quantinuum:
+
+```python
+from aqora.pytket import QPU
+from pytket import Circuit
+from pytket.wasm import WasmFileHandler
+
+wasm = WasmFileHandler("decoder.wasm")  # pytket requires it to export a no-argument `init`
+
+circ = Circuit(0)
+a = circ.add_c_register("a", 8)
+b = circ.add_c_register("b", 8)
+circ.add_wasm_to_reg("add_one", wasm, [a], [b])
+
+backend = QPU(platform="nexus:H2-1E")
+handle = backend.process_circuit(circ, n_shots=10, wasm_file_handler=wasm)
+print(backend.get_result(handle).get_counts())
+```
+
+The module is uploaded alongside the circuits and attached to the job. A circuit with WASM calls
+fails at Nexus when submitted without its module.
+
+### Emulator options
+
+On the same Nexus H-series platforms, `process_circuits` forwards pytket-quantinuum's
+`noisy_simulation`, `leakage_detection` and `simplify_initial` keyword arguments to the emulator,
+and `options=` takes the other supported fields of Nexus' `QuantinuumConfig`:
+
+```python
+backend.process_circuits([circ], n_shots=10, noisy_simulation=False)
+backend.process_circuits([circ], n_shots=10, options={"simulator": "stabilizer"})
+```
+
+The supported keys are `noisy_simulation`, `simulator`, `error_params`, `compiler_options`,
+`no_opt`, `allow_2q_gate_rebase`, `target_2qb_gate`, `leakage_detection` and `simplify_initial`.
+Only the options you pass are sent, so Nexus' defaults (such as noisy simulation on the emulators)
+apply to the rest. Any other key, or any option on another platform, is rejected before the job is
+submitted.
+
 ## Guppy
 
 ```bash
