@@ -85,6 +85,21 @@ to TKET, `aqora[pytket-qir]` pytket circuits to QIR, and `aqora[guppy-qir]` HUGR
 conversion is unavailable, the error tells you which extra to install.
 :::
 
+## WASM modules and emulator options
+
+On Nexus H-series platforms (e.g. `nexus:H2-1E`), `run()` takes two more arguments. `wasm`
+attaches a WASM module that the programs call into: a pytket `WasmFileHandler`, the module's
+bytes, or a path to a `.wasm` file. `options` sets emulator options such as `noisy_simulation`:
+
+```python
+qpu = QPU(platform="nexus:H2-1E")
+job = qpu.run(circ, shots=10, wasm="decoder.wasm", options={"noisy_simulation": False})
+```
+
+Here `circ` is a pytket circuit with WASM calls. Other platforms reject both arguments. See
+[WASM modules](/qpu/frameworks/#wasm-modules) and
+[emulator options](/qpu/frameworks/#emulator-options) for the details and the supported options.
+
 ## Working with jobs
 
 ```python
