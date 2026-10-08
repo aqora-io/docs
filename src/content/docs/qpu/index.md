@@ -96,9 +96,26 @@ qpu = QPU(platform="nexus:H2-1E")
 job = qpu.run(circ, shots=10, wasm="decoder.wasm", options={"noisy_simulation": False})
 ```
 
-Here `circ` is a pytket circuit with WASM calls. Other platforms reject both arguments. See
-[WASM modules](/qpu/frameworks/#wasm-modules) and
-[emulator options](/qpu/frameworks/#emulator-options) for the details and the supported options.
+Here `circ` is a pytket circuit with WASM calls. The Selene emulators (`nexus:Selene` and
+`nexus:SelenePlus`) take `options` too, to pick the number of qubits, the simulator, the runtime and
+the error model. Here `bell` is a Guppy function:
+
+```python
+qpu = QPU(platform="nexus:SelenePlus")
+job = qpu.run(
+    bell,
+    shots=100,
+    options={
+        "n_qubits": 8,
+        "runtime": {"type": "HeliosRuntime"},
+        "error_model": {"type": "QSystemErrorModel"},
+    },
+)
+```
+
+Other platforms reject both arguments. See [WASM modules](/qpu/frameworks/#wasm-modules),
+[emulator options](/qpu/frameworks/#emulator-options) and
+[Selene options](/qpu/frameworks/#selene-options) for the details and the supported options.
 
 ## Working with jobs
 
