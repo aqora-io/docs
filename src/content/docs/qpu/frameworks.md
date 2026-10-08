@@ -142,3 +142,40 @@ job = qpu.run(bell, shots=1000)
 res = job.result()  # hugr QsysResult (or a labeled QIR result)
 print(res.collated_counts())
 ```
+
+### Selene options
+
+`run()` takes `options=` for Nexus' Selene emulators. There are two:
+
+- `nexus:Selene` runs the `SimpleRuntime` with no noise by default. It accepts `n_qubits`,
+  `simulator` and `error_model`.
+- `nexus:SelenePlus` models the Helios system and runs the `HeliosRuntime` with the
+  `QSystemErrorModel` by default. It also accepts `runtime`.
+
+```python
+qpu = QPU(platform="nexus:Selene")
+job = qpu.run(bell, shots=1000, options={"n_qubits": 2})
+
+qpu = QPU(platform="nexus:SelenePlus")
+job = qpu.run(
+    bell,
+    shots=1000,
+    options={"n_qubits": 2, "simulator": {"type": "StabilizerSimulator"}},
+)
+```
+
+`n_qubits` is the number of qubits to simulate. It defaults to the device's full width (26), and a
+statevector simulation of 26 qubits is slow, so set it to what your program needs.
+
+`simulator`, `runtime` and `error_model` are the objects of Nexus' `SeleneConfig` and
+`SelenePlusConfig`, written as JSON with a `type` key:
+
+| Option        | `nexus:Selene`                                                                                 | `nexus:SelenePlus`                                              |
+| ------------- | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `simulator`   | `StatevectorSimulator`, `StabilizerSimulator`, `CoinflipSimulator`, `ClassicalReplaySimulator` | The same, plus `MatrixProductStateSimulator`                    |
+| `runtime`     | Not accepted (always `SimpleRuntime`)                                                          | `SimpleRuntime`, `HeliosRuntime`                                |
+| `error_model` | `NoErrorModel`, `DepolarizingErrorModel`                                                       | The same, plus `QSystemErrorModel` and `HeliosCustomErrorModel` |
+
+`QSystemErrorModel` and `HeliosCustomErrorModel` need the `HeliosRuntime`. Nexus checks the
+objects' fields, so a job with an invalid one fails at Nexus. Any other key is rejected before the
+job is submitted.
